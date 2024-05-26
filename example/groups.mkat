@@ -1,0 +1,23 @@
+public group HelloGroup {
+	public func <@GroupEvent.Init> init(me: HelloGroup) {
+		me.message = "Hello";
+	}
+
+	public func say(me: HelloGroup) {
+		console.info(me.message);
+	}
+}
+
+public group Replica<HelloGroup> ByeGroup {
+	public func <@Replace.GroupEvent.Init> init(me: HelloGroup) {
+		me.message = "Bye";
+	}
+}
+
+public runner main() {
+	hello = HelloGroup();
+	bye = ByeGroup();
+
+	hello.say(); # Hello
+	bye.say(); # Bye
+}
